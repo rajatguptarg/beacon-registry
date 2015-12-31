@@ -7,7 +7,6 @@ from beacons.portal.view import portal
 app = Flask(__name__)
 
 app.config['LOG_FILE'] = 'application.log'
-
 file_handler = FileHandler(app.config['LOG_FILE'])
 file_handler.setLevel(logging.INFO)
 app.logger.addHandler(file_handler)
