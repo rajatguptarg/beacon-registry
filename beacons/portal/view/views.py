@@ -295,5 +295,11 @@ def logout_user():
     Logout the current logged in User
     """
     if 'credentials' in flask.session:
+        credentials = client.OAuth2Credentials.from_json(
+            flask.session['credentials'])
+        user = controller.get_session_username(credentials)
         del flask.session['credentials']
+        beacons.app.logger.error('USER:' + user +
+            '\nis successfully Logged out.')
+
     return flask.redirect(flask.url_for('portal.list_beacons'))
