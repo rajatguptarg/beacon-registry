@@ -33,6 +33,6 @@ QUERY = '?namespacedType=*/*'
 USER_INFO = 'https://www.googleapis.com/oauth2/v1/userinfo'
 
 ESTIMOTE_CMD = \
-    "curl -u " + str(os.environ.get('estimote_username')) + ":" + \
-    str(os.environ.get('estimote_password')) + \
+    "curl -u " + str(os.environ.get('ESTIMOTE_USERNAME')) + ":" + \
+    str(os.environ.get('ESTIMOTE_PASSWORD')) + \
     " -H 'Accept: application/json' https://cloud.estimote.com/v1/beacons"
