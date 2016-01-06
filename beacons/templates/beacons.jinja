@@ -12,9 +12,14 @@
 
 <div class="row">
   <div class="col-md-1"></div>
-  <div class="col-md-10">
+  <div class="col-md-9">
       <button type="button" class="btn btn-success pull-right" onclick="location.href='register'">
           <span class="glyphicon glyphicon-plus"></span> &nbsp;Add Beacon
+      </button>
+  </div>
+  <div class="col-md-1">
+      <button type="button" class="btn btn-danger pull-right" onclick="location.href='logout'">
+          <span class="glyphicon glyphicon-user"></span> &nbsp;Logout
       </button>
   </div>
   <div class="col-md-1"></div>
@@ -29,8 +34,6 @@
                   <th class="info">Sno.</th>
                   <th class="info" class="info">Status</th>
                   <th class="info" class="info">Description</th>
-                  <th class="info" class="info">Position</th>
-                  <th class="info" class="info">Indoor Level</th>
                   <th class="info" colspan="2"class="info">Attachments</th>
                   <th class="info" colspan="1" class="info">Actions</th>
                   <th class="info" colspan="1" class="info">Manufacturer</th>
@@ -66,16 +69,6 @@
                       {% endif %}
 
                       <td class="active">{{ beacon.description }}</td>
-                      {% if beacon.properties %}
-                          <td class="active">{{ beacon.properties.position}}</td>
-                      {% else %}
-                          <td class="active"></td>
-                      {% endif %}
-                      {% if beacon.indoorLevel %}
-                          <td class="active">{{ beacon.indoorLevel.name }}</td>
-                      {% else %}
-                          <td class="active"></td>
-                      {% endif %}
 
                       <form class="form-horizontal" action="{{ url_for('portal.list_beacons_attachment') }}" method="get">
                         <input type="hidden" class="form-control" name="name" value={{ beacon.beaconName }}>
