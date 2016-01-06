@@ -287,3 +287,13 @@ def estimote_cloud_details():
     advertised_id = request.args.get('advid')
     beacon = controller.get_estimote_details(advertised_id)
     return render_template('estimote_details.jinja', beacon=beacon)
+
+
+@portal.route('/logout', methods=['GET'])
+def logout_user():
+    """
+    Logout the current logged in User
+    """
+    if 'credentials' in flask.session:
+        del flask.session['credentials']
+    return flask.redirect(flask.url_for('portal.list_beacons'))
