@@ -79,13 +79,13 @@ MODULE2PREFIX = {
     'beacon_manager': 'me',
 }
 
-MODULE = "beacon_manager"
-PREFIX = "my"
+MODULE = "registry"
+PREFIX = "beacon"
 
 
 setup(
     name='%s_%s' % (PREFIX, MODULE),
-    version='2.5',
+    # version='2.5',
     packages=['tests', 'beacons', 'beacons.portal'],
     url='https://www.github.com/rajatguptarg/beacons',
     license='MIT',
