@@ -84,7 +84,7 @@ PREFIX = "beacon"
 
 
 setup(
-    name='%s_%s' % (PREFIX, MODULE),
+    name='%s-%s' % (PREFIX, MODULE),
     # version='2.5',
     packages=['tests', 'beacons', 'beacons.portal'],
     url='https://www.github.com/rajatguptarg/beacons',
