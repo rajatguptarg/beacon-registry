@@ -3,10 +3,15 @@
 Author: Rajat Gupta
 """
 
+import sys
 import uuid
 from beacons import app
 
 
 if __name__ == '__main__':
-    app.secret_key = str(uuid.uuid4())
-    app.run(debug=True)
+    argument, _ = map(str, sys.argv[1].split('='))
+    if argument == 'config_directory':
+        app.secret_key = str(uuid.uuid4())
+        app.run(debug=True)
+    else:
+        raise ValueError
