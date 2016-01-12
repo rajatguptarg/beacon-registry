@@ -2,7 +2,7 @@
 import os
 import json
 import requests
-from beacons.portal.models import Header
+from beacons.portal.models import Header, IBeacon
 from beacons.portal.helper import BeaconHelper, URLBuilder
 from config import REGISTER_BEACONS, ERROR, SUCCESS, LIST_BEACONS, \
     USER_INFO, ESTIMOTE_CMD, NAMESPACE
@@ -104,13 +104,11 @@ def get_estimote_details(advertised_id):
     """
     Returns the namespace and instance id of the beacon
     """
-    namespace, instance = beacon_helper.get_namespace_instance(advertised_id)
     result = os.popen(ESTIMOTE_CMD).read()
     beacon_list = json.loads(result)
     for beacon in beacon_list:
-        beacon_namespace = beacon.get('settings').get('eddystone_namespace_id')
-        beacon_instane = beacon.get('settings').get('eddystone_instance_id')
-        if beacon_namespace == namespace and beacon_instane == instance:
+        beacon_advertised_id = IBeacon(beacon).advertised_id()
+        if advertised_id == beacon_advertised_id:
             return beacon
     return None
 
