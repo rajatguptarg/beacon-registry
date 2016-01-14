@@ -181,11 +181,21 @@ def edit_beacon():
     """
     Render template for edit beacon details
     """
-    return render_template(
-        'edit_beacon.jinja', beacon=request.args.get('name'),
-        advid=request.args.get('advid'),
-        description=request.args.get('description')
+    if 'credentials' not in flask.session:
+        return flask.redirect(flask.url_for('portal.oauth2callback'))
+    credentials = client.OAuth2Credentials.from_json(
+        flask.session['credentials']
     )
+    if credentials.access_token_expired:
+        return flask.redirect(flask.url_for('portal.oauth2callback'))
+    else:
+        beacon = BeaconHelper.create_beacon(request.args)
+        beacon = controller.get_beacon_details(credentials, beacon)
+        name = beacon.get('description')
+        name = name.replace(" ", "%20")
+        return render_template(
+            'edit_beacon.jinja', beacon=beacon,
+            name=name)
 
 
 @portal.route('/edit-status', methods=['POST'])

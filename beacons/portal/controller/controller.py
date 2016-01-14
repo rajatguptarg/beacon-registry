@@ -120,3 +120,13 @@ def namespace_of_beacon(credentials):
     header = Header(credentials.access_token)
     response = requests.get(NAMESPACE, headers=header.__str__())
     return json.loads(response.content)
+
+
+def get_beacon_details(credentials, beacon):
+    """
+    Returns the beacon instance
+    """
+    header = Header(credentials.access_token)
+    url = url_builder.beacon_modification_url(beacon)
+    response = requests.get(url, headers=header.get_header_body())
+    return json.loads(response.content)
