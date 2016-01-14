@@ -99,6 +99,7 @@
                       <form class="form-horizontal" action="{{ url_for('portal.edit_beacon') }}" method="get">
                             <input type="hidden" class="form-control" name="name" value={{ beacon.beaconName }}>
                             <input type="hidden" class="form-control" name="advid" value={{ beacon.advertisedId.id }}>
+                            <input type="hidden" class="form-control" name="description" id="description" value={{ beacon.description }}>
                             <div class="form-group">
                                 <div class="col-xs-offset-4 col-xs-8">
                                     <td class="active">

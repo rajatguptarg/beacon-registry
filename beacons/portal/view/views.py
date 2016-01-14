@@ -183,7 +183,8 @@ def edit_beacon():
     """
     return render_template(
         'edit_beacon.jinja', beacon=request.args.get('name'),
-        advid=request.args.get('advid')
+        advid=request.args.get('advid'),
+        description=request.args.get('description')
     )
 
 
@@ -212,9 +213,10 @@ def edit_beacon_status():
             beacons.app.logger.warning(
                 'USER:' + user + '\nModified beacon' + ' with ' +
                 str(beacon) + ' failed.')
-        return render_template(
-            'edit_beacon_status.jinja', status=status
-        )
+        # return render_template(
+        #     'edit_beacon_status.jinja', status=status
+        # )
+        return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
 @portal.route('/attachment', methods=['GET'])
@@ -277,6 +279,8 @@ def beacon_attachment_status():
 
         decoded_message = base64.b64decode((json.loads(status))['data'])
         attached_data = json.loads(decoded_message)
+
+        # return flask.redirect(flask.url_for('portal.list_beacons'))
 
         return render_template('attachment_status.jinja',
              attachment=attached_data, status=json.loads(status))
