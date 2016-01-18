@@ -2,21 +2,23 @@ Beacon Management Portal
 =========================
 This is basic web application to manage your beacons.
 
+Prerequisites
+==========
 
-How to Run
+* Python (v2.7.x)
+* Virtual Environment
+* Pip
+
+
+Running the portal
 ==========
 To run this app, we prefer to use **virtualenv**. Follow these steps to run
 this application:
 
-**[1]** Create the virtual environment
-
-**[2]** Inside virtual env, fire this command `pip install -r requirements.txt`
-
-**[3]** Now you are done, run your app by firing command `python run.py`
-
-You also need to have to have your `client_secrets.json` file, which you will get by downloading the OAuth key of your project. Make sure to rename the name of the file as `client_secrets.json`. This file should look like `sample_client_secret.json` provided with the code.
-
-Now your server is started, Go to browser and open the URL: `127.0.0.1:5000`
+* Create the virtual environment
+* Inside virtual env, fire this command `pip install -r requirements.txt`
+* This app uses Google OAuth for authentication. To configure it. you need to have to have your `client_secrets.json` file at the root of your check out directory. For development box setup, you could download from [here](https://drive.google.com/open?id=0BxIPzUlJFkTqRTI3Nml5N0NCOEE)
+* Run your app by firing command `python run.py`. Go to browser and open the URL: [http://localhost:9200](http://localhost:9200)
 
 
 How to get Advertised ID from UUID+Major+Minor
