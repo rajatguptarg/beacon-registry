@@ -18,3 +18,4 @@ graft templates
 graft static
 include *.conf
 recursive-include beacons *
+recursive-include config *
