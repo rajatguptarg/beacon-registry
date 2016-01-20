@@ -10,7 +10,7 @@ from oauth2client import client
 from config import SCOPE, SUCCESS, ERROR
 from beacons.portal.controller import controller
 from beacons.portal.helper import BeaconHelper
-import beacons
+from flask import current_app
 from beacons.portal.view import portal
 import sys
 
@@ -23,14 +23,14 @@ def list_beacons():
     Returns list of registered beacons
     """
     if 'credentials' not in flask.session:
-        beacons.app.logger.warning('Creating the new session.')
+        current_app.logger.warning('Creating the new session.')
         return flask.redirect(flask.url_for('portal.oauth2callback'))
     credentials = client.OAuth2Credentials.from_json(
         flask.session['credentials']
     )
 
     if credentials.access_token_expired:
-        beacons.app.logger.warning('Session Expired. Login Agained.')
+        current_app.logger.warning('Session Expired. Login Agained.')
         return flask.redirect(flask.url_for('portal.oauth2callback'))
     else:
         beacon = controller.list_beacons(credentials)
@@ -84,11 +84,11 @@ def register_beacons_status():
         data = controller.register_beacon(beacon, credentials)
         name = controller.get_session_username(credentials)
         if data.get('error'):
-            beacons.app.logger.warning(
+            current_app.logger.warning(
                 'USER: ' + name + '\nBeacon with ' + str(beacon) +
                 ' failed to register.')
         else:
-            beacons.app.logger.warning(
+            current_app.logger.warning(
                 'USER: ' + name + '\nBeacon with ' + str(beacon) +
                 ' registered successfully.')
         return render_template(
@@ -120,7 +120,7 @@ def deactivate_beacons_status():
         beacon = BeaconHelper.create_beacon(request.form)
         controller.deactivate_beacon(beacon, credentials)
         user = controller.get_session_username(credentials)
-        beacons.app.logger.warning(
+        current_app.logger.warning(
             'USER: ' + user + '\nBeacon with ' + str(beacon) +
             ' unregistration successful.')
         return flask.redirect(flask.url_for('portal.list_beacons'))
@@ -143,7 +143,7 @@ def activate_beacons_status():
         beacon = BeaconHelper.create_beacon(request.form)
         controller.activate_beacon(beacon, credentials)
         user = controller.get_session_username(credentials)
-        beacons.app.logger.warning(
+        current_app.logger.warning(
             'USER: ' + user + '\nBeacon with ' + str(beacon) +
             ' unregistration successful.')
         return flask.redirect(flask.url_for('portal.list_beacons'))
@@ -216,11 +216,11 @@ def edit_beacon_status():
         status = controller.modify_beacon(beacon, credentials)
         status = SUCCESS if status.get('beaconName') else ERROR
         if status == SUCCESS:
-            beacons.app.logger.warning(
+            current_app.logger.warning(
                 'USER:' + user + '\nModified beacon' + ' with ' + str(beacon) +
                 'successfully.')
         else:
-            beacons.app.logger.warning(
+            current_app.logger.warning(
                 'USER:' + user + '\nModified beacon' + ' with ' +
                 str(beacon) + ' failed.')
         # return render_template(
@@ -277,11 +277,11 @@ def beacon_attachment_status():
         user = controller.get_session_username(credentials)
         try:
             json.loads(request.form['msg'])
-            beacons.app.logger.warning(
+            current_app.logger.warning(
                 'USER:' + user + '\nAdded attachement to' + ' beacon with ' +
                 str(beacon) + ' successfully.')
         except ValueError:
-            beacons.app.logger.error(
+            current_app.logger.error(
                 'USER:' + user + '\nAdded attachement' + ' to beacon with ' +
                 str(beacon) + ' raised valued error.')
             flash('Invalid Input !!!!')
@@ -316,7 +316,7 @@ def logout_user():
             flask.session['credentials'])
         user = controller.get_session_username(credentials)
         flask.session.pop('credentials', None)
-        beacons.app.logger.warning('USER:' + user +
+        current_app.logger.warning('USER:' + user +
             '\nis successfully Logged out.')
 
     return flask.redirect(flask.url_for('portal.oauth2callback'))
