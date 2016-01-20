@@ -15,8 +15,11 @@ log_handler.setLevel(logging.DEBUG)
 
 log_handler.setFormatter(Formatter(
     '\n-------------------------------------\n'
-    '%(asctime)s %(levelname)s: %(message)s \n'
-    '[in %(pathname)s:%(lineno)d]'
+    'TIME: %(asctime)s \n'
+    'LEVEL: %(levelname)s \n'
+    'MESSAGE: %(message)s \n'
+    'FILE: %(pathname)s \n'
+    'LINE: %(lineno)d'
     '\n-------------------------------------\n'))
 
 app.logger.addHandler(log_handler)
