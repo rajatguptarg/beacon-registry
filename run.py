@@ -21,6 +21,6 @@ if __name__ == '__main__':
 
         application.secret_key = str(uuid.uuid4())
         run_simple(
-            'localhost', 9020, application, use_reloader=True)
+            '0.0.0.0', 9020, application, use_reloader=True)
     else:
         raise ValueError
