@@ -6,7 +6,6 @@ __pycache__/
 .DS_Store
 # C extensions
 *.so
-config/*
 client_secrets.json
 
 # Distribution / packaging

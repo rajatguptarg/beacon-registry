@@ -18,5 +18,4 @@ graft templates
 graft static
 include *.conf
 recursive-include beacons *
-exclude config
-recursive-include hello *.py
+recursive-include config *

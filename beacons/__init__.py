@@ -1,13 +1,18 @@
 from flask import Flask
 import logging
-from logging import Formatter
+from logging import FileHandler, Formatter
 from beacons.portal.view import portal
 
 
 app = Flask(__name__)
 
-logger = logging.getLogger('Beacon Registry')
-logger.setLevel(logging.DEBUG)
+app.config['LOG_FILE'] = 'application.log'
+file_handler = FileHandler(app.config['LOG_FILE'])
+file_handler.setLevel(logging.INFO)
+app.logger.addHandler(file_handler)
+file_handler.setFormatter(Formatter(
+    '%(asctime)s %(levelname)s: %(message)s '
+    '[in %(pathname)s:%(lineno)d]'))
 
 log_handler = logging.StreamHandler()
 log_handler.setLevel(logging.DEBUG)
