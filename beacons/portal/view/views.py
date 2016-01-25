@@ -23,7 +23,7 @@ def list_beacons():
     Returns list of registered beacons
     """
     if 'credentials' not in flask.session:
-        beacons.app.logger.debug('Creating the new session.')        
+        beacons.app.logger.debug('Creating the new session.')
         return flask.redirect(flask.url_for('portal.oauth2callback'))
 
     credentials = client.OAuth2Credentials.from_json(

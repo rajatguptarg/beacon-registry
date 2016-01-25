@@ -17,64 +17,6 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-class SQLiteTest(Command):
-    """
-    Run the tests on SQLite
-    """
-    description = "Run tests on SQLite"
-
-    user_options = []
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        if self.distribution.tests_require:
-            self.distribution.fetch_build_eggs(self.distribution.tests_require)
-
-        os.environ['DATABASE_URI'] = 'sqlite://'
-        os.environ['DB_NAME'] = ':memory:'
-
-        from tests import suite
-        test_result = unittest.TextTestRunner(verbosity=2).run(suite())
-
-        if test_result.wasSuccessful():
-            sys.exit(0)
-        sys.exit(-1)
-
-
-class PostgresTest(Command):
-    """
-    Run the tests on Postgres.
-    """
-    description = "Run tests on Postgresql"
-
-    user_options = []
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        if self.distribution.tests_require:
-            self.distribution.fetch_build_eggs(self.distribution.tests_require)
-
-        os.environ['DATABASE_URI'] = 'postgresql://'
-        os.environ['DB_NAME'] = 'test_' + str(int(time.time()))
-
-        from tests import suite
-        test_result = unittest.TextTestRunner(verbosity=2).run(suite())
-
-        if test_result.wasSuccessful():
-            sys.exit(0)
-        sys.exit(-10)
-
-
 MODULE2PREFIX = {
     'beacon_manager': 'me',
 }
@@ -86,7 +28,7 @@ PREFIX = "beacon"
 setup(
     name='%s-%s' % (PREFIX, MODULE),
     # version='2.5',
-    packages=['tests', 'beacons', 'beacons.portal'],
+    packages=['beacons'],
     url='https://www.github.com/rajatguptarg/beacons',
     license='MIT',
     author='Rajat Gupta',
@@ -104,10 +46,5 @@ setup(
         'Framework :: Flask',
         'Topic :: Office/Business',
     ],
-    test_suite='tests.suite',
-    tests_require=[],
-    cmdclass={
-        'test': SQLiteTest,
-        'test_postgres': PostgresTest,
-    },
+    test_suite='tests'
 )
