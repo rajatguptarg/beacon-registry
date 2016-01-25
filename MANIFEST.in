@@ -1,23 +1,14 @@
-include INSTALL
-include README
-include COPYRIGHT
-include CHANGELOG
-include MIGRATION
-include LICENSE
 include MANIFEST
-include Makefile
+include LICENSE
 include *.txt
 include *.md
 include *.py
 include tox.ini
-include .coveragerc
-include *.conf
-recursive-include beacons *.py 
+recursive-include beacons *.py
 recursive-include beacons *.css
 recursive-include beacons *.jinja
 recursive-include beacons *.js
 
-exclude TODO
 global-exclude *.swp
 recursive-exclude beacons *.pyc
 prune config
