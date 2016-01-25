@@ -13,12 +13,12 @@
 <div class="row">
   <div class="col-md-1"></div>
   <div class="col-md-9">
-      <button type="button" class="btn btn-success pull-right" onclick="location.href='register'">
+      <button type="button" class="btn btn-success pull-right" onclick="location.href='{{ url_for('portal.register_beacons') }}'">
           <span class="glyphicon glyphicon-plus"></span> &nbsp;Add Beacon
       </button>
   </div>
   <div class="col-md-1">
-      <button type="button" class="btn btn-danger pull-right" onclick="location.href='logout'">
+      <button type="button" class="btn btn-danger pull-right" onclick="location.href='{{ url_for('portal.logout_user') }}'">
           <span class="glyphicon glyphicon-user"></span> &nbsp;Logout
       </button>
   </div>

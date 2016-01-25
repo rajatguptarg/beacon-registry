@@ -17,14 +17,15 @@ import sys
 session = requests.Session()
 
 
-@portal.route('/')
+@portal.route('/beacons')
 def list_beacons():
     """
     Returns list of registered beacons
     """
     if 'credentials' not in flask.session:
-        beacons.app.logger.warning('Creating the new session.')
+        beacons.app.logger.debug('Creating the new session.')        
         return flask.redirect(flask.url_for('portal.oauth2callback'))
+
     credentials = client.OAuth2Credentials.from_json(
         flask.session['credentials']
     )
@@ -37,7 +38,7 @@ def list_beacons():
         return render_template('beacons.jinja', beacons=beacon)
 
 
-@portal.route('/oauth2callback')
+@portal.route('/beacons/oauth2callback')
 def oauth2callback():
     """
     OAuth2.0 Callback
@@ -59,7 +60,7 @@ def oauth2callback():
         return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/register', methods=['GET'])
+@portal.route('/beacons/register', methods=['GET'])
 def register_beacons():
     """
     Render template for register beacons
@@ -67,7 +68,7 @@ def register_beacons():
     return render_template('register.jinja')
 
 
-@portal.route('/register', methods=['POST'])
+@portal.route('/beacons/register', methods=['POST'])
 def register_beacons_status():
     """
     Return status of beacon registration
@@ -95,7 +96,7 @@ def register_beacons_status():
             'registration_status.jinja', status=data)
 
 
-@portal.route('/unregister', methods=['GET'])
+@portal.route('/beacons/unregister', methods=['GET'])
 def unregister_beacons():
     """
     Render template to deactivate beacon
@@ -103,7 +104,7 @@ def unregister_beacons():
     return render_template('unregister.jinja')
 
 
-@portal.route('/deactivate', methods=['POST'])
+@portal.route('/beacons/deactivate', methods=['POST'])
 def deactivate_beacons_status():
     """
     Returns status of deactivation of beacon
@@ -126,7 +127,7 @@ def deactivate_beacons_status():
         return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/activate', methods=['POST'])
+@portal.route('/beacons/activate', methods=['POST'])
 def activate_beacons_status():
     """
     Activates the Inactive beacon
@@ -149,7 +150,7 @@ def activate_beacons_status():
         return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/view-attachment', methods=['GET'])
+@portal.route('/beacons/view-attachment', methods=['GET'])
 def list_beacons_attachment():
     """
     Returns status of deactivation of beacon
@@ -176,7 +177,7 @@ def list_beacons_attachment():
                 msg="Sorry No Attachments Found")
 
 
-@portal.route('/edit', methods=['GET'])
+@portal.route('/beacons/edit', methods=['GET'])
 def edit_beacon():
     """
     Render template for edit beacon details
@@ -198,7 +199,7 @@ def edit_beacon():
             name=name)
 
 
-@portal.route('/edit-status', methods=['POST'])
+@portal.route('/beacons/edit-status', methods=['POST'])
 def edit_beacon_status():
     """
     Returns the status of editing of beacon
@@ -229,7 +230,7 @@ def edit_beacon_status():
         return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/attachment', methods=['GET'])
+@portal.route('/beacons/attachment', methods=['GET'])
 def attachment_beacons():
     if 'credentials' not in flask.session:
         return flask.redirect(flask.url_for('portal.oauth2callback'))
@@ -258,7 +259,7 @@ def attachment_beacons():
         attachment=decoded_message)
 
 
-@portal.route('/attachment-status', methods=['POST'])
+@portal.route('/beacons/attachment-status', methods=['POST'])
 def beacon_attachment_status():
     """
     Returns the status of adding attachment to beacon
@@ -296,7 +297,7 @@ def beacon_attachment_status():
              attachment=attached_data, status=json.loads(status))
 
 
-@portal.route('/estimote-details', methods=['GET'])
+@portal.route('/beacons/estimote-details', methods=['GET'])
 def estimote_cloud_details():
     """
     Returns the details of the beacon available on estimote cloud
@@ -306,7 +307,7 @@ def estimote_cloud_details():
     return render_template('estimote_details.jinja', beacon=beacon)
 
 
-@portal.route('/logout', methods=['GET'])
+@portal.route('/beacons/logout', methods=['GET'])
 def logout_user():
     """
     Logout the current logged in User
