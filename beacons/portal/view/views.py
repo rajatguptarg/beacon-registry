@@ -18,7 +18,7 @@ import os
 session = requests.Session()
 
 
-@portal.route('/beacons')
+@portal.route('/beacons/')
 def list_beacons():
     """
     Returns list of registered beacons
