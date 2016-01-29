@@ -323,8 +323,8 @@ def logout_user():
 
     return flask.redirect(flask.url_for('portal.oauth2callback'))
 
+
 @portal.route('/beacons/static/<path:resourcetype>/<path:filename>')
 def static_resources(resourcetype, filename):
-    beacons.app.logger.info("File request for " + os.path.abspath('beacons/static/'+str(resourcetype)))
-    return flask.send_from_directory(os.path.abspath('beacons/static/'+str(resourcetype)),
-                               filename)
+    return flask.send_from_directory(
+        os.path.abspath('beacons/static/' + str(resourcetype)), filename)

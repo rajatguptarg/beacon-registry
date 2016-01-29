@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 import os
-import sys
-import time
-import unittest
 from setuptools import Command
 from distutils.core import setup
 
