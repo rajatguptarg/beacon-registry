@@ -328,9 +328,8 @@ def logout_user():
 def static_resources(resourcetype, filename):
     beacons.app.logger.info(
         str(os.path.join(
-            current_app.root_path, 'static/'
-            + str(resourcetype)
-            + "/" + str(filename))))
+            current_app.root_path, 'static/' + str(resourcetype) +
+            "/" + str(filename))))
     return flask.send_from_directory(
         os.path.join(current_app.root_path,
         'static/' + str(resourcetype)), filename)
