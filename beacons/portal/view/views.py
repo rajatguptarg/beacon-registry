@@ -5,7 +5,7 @@ import base64
 import json
 import flask
 import requests
-from flask import render_template, flash, request
+from flask import render_template, flash, request, current_app
 from oauth2client import client
 from config import SCOPE, SUCCESS, ERROR
 from beacons.portal.controller import controller
@@ -327,7 +327,10 @@ def logout_user():
 @portal.route('/beacons/static/<resourcetype>/<path:filename>')
 def static_resources(resourcetype, filename):
     beacons.app.logger.info(
-        str(os.path.abspath(
-            'beacons/static/' + str(resourcetype)) + "/" + str(filename)))
+        str(os.path.join(
+            current_app.root_path, 'static/'
+            + str(resourcetype)
+            + "/" + str(filename))))
     return flask.send_from_directory(
-        os.path.abspath('beacons/static/' + str(resourcetype)), filename)
+        os.path.join(current_app.root_path,
+        'static/' + str(resourcetype)), filename)
