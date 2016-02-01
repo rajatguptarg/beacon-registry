@@ -35,7 +35,9 @@ pip install -r requirements.txt
 ```
 python run.py config_directory=./config
 ```
-Go to browser and open the URL: [http://localhost:9020](http://localhost:9020)
+Go to browser and open the URL: [http://localhost:9020/beacons](http://localhost:9020/beacons)
+
+If you want to run from vagrant box, open the URL: [http://local.vagrant.com/beacons](http://local.vagrant.com/beacons)
 
 
 How to get Advertised ID from UUID+Major+Minor
