@@ -3,6 +3,7 @@
 {% block title %} Status {% endblock %}
 
 {% block content%}
+
     {% for key in status%}
         {% if key == 'error' %}
             <strong>Code:</strong> {{ status[key]['code'] }}<br>
@@ -18,6 +19,9 @@
         {% endif %}
         {% if key == 'beaconName' %}
             <strong>Beacon Name:</strong> {{ status[key] }}<br>
+        {% endif %}
+         {% if key == 'properties' %}
+            <strong>Properties :</strong> {{ status[key] }}<br>
         {% endif %}
     {% endfor %}
 {% endblock %}

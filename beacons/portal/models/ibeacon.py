@@ -27,6 +27,12 @@ class IBeacon(Beacon):
         sizeof_b += sizeof_b % 4
         return (a << sizeof_b) | b
 
+    def properties(self):
+        return {"position": self.position,
+        "uuid": self.uuid,
+        "major": self.major,
+        "minor": self.minor}
+
     def __init__(self, form):
         super(self.__class__, self).__init__(form)
         self.uuid = form.get('uuid')

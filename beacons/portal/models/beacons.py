@@ -23,6 +23,7 @@ class Beacon(object):
         Return the request body in json format
         """
         advertise_id = self.advertised_id()
+        properties = self.properties()
         body = {
             "advertisedId": {
                 "type": "EDDYSTONE",
@@ -35,9 +36,7 @@ class Beacon(object):
             },
             "expectedStability": self.expected_stability,
             "description": self.description,
-            "properties": {
-                "position": self.position,
-            }
+            "properties": properties
         }
         return body
 
@@ -45,6 +44,7 @@ class Beacon(object):
         """
         Return request body to update beacon
         """
+        properties = self.properties()
         body = {
             "beaconName": self.beacon_name,
             "placeId": self.place_id,
@@ -52,9 +52,7 @@ class Beacon(object):
                 "name": self.indoorlevel_name,
             },
             "description": self.description,
-            "properties": {
-                "position": self.position,
-            }
+            "properties": properties
         }
         return body
 
@@ -85,6 +83,12 @@ class Beacon(object):
     def advertised_id(self):
         """
         Return advertised id
+        """
+        pass
+
+    def properties(self):
+        """
+        Return properties
         """
         pass
 

@@ -14,6 +14,11 @@ class EddyStone(Beacon):
         beacon_id = int(beacon_id, 16)
         return base64.b64encode(self.long_to_bytes(beacon_id))
 
+    def properties(self):
+        return {"position": self.position,
+        "namespace": self.namespace,
+        "instance": self.instance}
+
     def __init__(self, form):
         super(self.__class__, self).__init__(form)
         self.namespace = form.get('namespace')
