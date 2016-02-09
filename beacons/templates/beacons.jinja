@@ -27,23 +27,23 @@
 
 <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-10 beaconsContainer">
+    <div class="col-md-10" beaconsContainer">
         <table class="table table-bordered" align="center">
           <thead>
               <tr class="active">
                   <th class="info">Sno.</th>
-                  <th class="info" class="info">Status</th>
-                  <th class="info" class="info">Description</th>
-                  <th class="info" colspan="2"class="info">Attachments</th>
-                  <th class="info" colspan="1" class="info">Actions</th>
-                  <th class="info" colspan="1" class="info">Manufacturer</th>
+                  <th class="info" >Status</th>
+                  <th class="info col-sm-3" >Description</th>
+                  <th class="info col-sm-3">Properties</th>
+                  <th class="info" colspan="2" >Attachments</th>
+                  <th class="info" colspan="1" >Actions</th>
+                  <th class="info" colspan="1" >Manufacturer</th>
               </tr>
             </thead>
             <tbody>
               {% for beacon in beacons.beacons %}
                   <tr class="active">
                       <td class="active">{{ loop.index }}</td>
-
                       {% if beacon.status  == 'ACTIVE' %}
                           <form class="form-horizontal" id="estimote" action="{{ url_for('portal.deactivate_beacons_status') }}" method="post">
                               <input type="hidden" class="form-control" name="name" value={{ beacon.beaconName }}>
@@ -70,6 +70,18 @@
 
                       <td class="active">{{ beacon.description }}</td>
 
+                      <td class="active">
+                      {% if 'properties' in beacon %}
+                          {% if 'uuid' in beacon.properties %}
+                            <strong> UUID </strong> : {{beacon.properties.uuid}}</br>
+                            <strong> Major </strong> : {{beacon.properties.major}}</br>
+                            <strong> Minor </strong> : {{beacon.properties.minor}}
+                          {% elif 'namespace' in beacon.properties  %}
+                            <strong> Namespace </strong> : {{beacon.properties.namespace}}</br>
+                            <strong> Instance </strong> : {{beacon.properties.instance}}  
+                          {% endif %}
+                      {% endif %} </td>
+                        
                       <form class="form-horizontal" action="{{ url_for('portal.list_beacons_attachment') }}" method="get">
                         <input type="hidden" class="form-control" name="name" value={{ beacon.beaconName }}>
                         <div class="form-group">
