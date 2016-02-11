@@ -72,15 +72,10 @@
 
                       <td class="active">
                       {% if 'properties' in beacon %}
-                          {% if 'uuid' in beacon.properties %}
-                            <strong> UUID </strong> : {{beacon.properties.uuid}}</br>
-                            <strong> Major </strong> : {{beacon.properties.major}}</br>
-                            <strong> Minor </strong> : {{beacon.properties.minor}}
-                          {% elif 'namespace' in beacon.properties  %}
-                            <strong> Namespace </strong> : {{beacon.properties.namespace}}</br>
-                            <strong> Instance </strong> : {{beacon.properties.instance}}  
-                          {% endif %}
-                      {% endif %} </td>
+                        {%for key in beacon.properties.keys()%}
+                         <strong> {{key}} </strong> : {{beacon.properties.get(key)}}</br>
+                        {% endfor %}
+                      {% endif %}</td>
                         
                       <form class="form-horizontal" action="{{ url_for('portal.list_beacons_attachment') }}" method="get">
                         <input type="hidden" class="form-control" name="name" value={{ beacon.beaconName }}>
