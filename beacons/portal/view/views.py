@@ -247,7 +247,7 @@ def attachment_beacons():
         beacon = BeaconHelper.create_beacon(request.args)
         status = controller.namespace_of_beacon(credentials)
         data = status['namespaces'][0]['namespaceName']
-        namespace = ((data.strip("namespaces")).replace('/', '')) + "/json"
+        namespace = data.split("/")[1] + "/json"
         status = controller.list_beacons_attachment(beacon, credentials)
 
         if ("attachments") in (json.loads(status)):

@@ -7,7 +7,6 @@ class IBeacon(Beacon):
     iBeacon protocol
     """
 
-    @property
     def advertised_id(self):
         """
         Convert uuid, major, minor into advertised id
