@@ -1,5 +1,6 @@
 import unittest
 from .test_views import TestViews
+from .test_ibeacons import TestIBeacon
 
 
 def suite():
@@ -9,6 +10,7 @@ def suite():
     test_suite = unittest.TestSuite()
     test_suite.addTests([
         unittest.TestLoader().loadTestsFromTestCase(TestViews),
+        unittest.TestLoader().loadTestsFromTestCase(TestIBeacon),
     ])
     return test_suite
 
