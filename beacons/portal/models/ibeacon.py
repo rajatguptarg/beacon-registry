@@ -6,6 +6,8 @@ class IBeacon(Beacon):
     """
     iBeacon protocol
     """
+
+    @property
     def advertised_id(self):
         """
         Convert uuid, major, minor into advertised id
@@ -22,9 +24,14 @@ class IBeacon(Beacon):
         Append hex number a in front of b
         """
         sizeof_b = 0
+
+        # Count the number of bits in b
         while((b >> sizeof_b) > 0):
             sizeof_b += 1
-        sizeof_b += sizeof_b % 4
+
+        # make number of bits perfectly divisible by 4
+        sizeof_b += 4 - ((sizeof_b % 4) or 4)
+
         return (a << sizeof_b) | b
 
     def properties(self):
