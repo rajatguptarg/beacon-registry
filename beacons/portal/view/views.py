@@ -193,6 +193,8 @@ def edit_beacon_status():
     credentials = client.OAuth2Credentials.from_json(
         flask.session['credentials'])
     beacon = BeaconHelper.create_beacon(request.form)
+    form = controller.get_beacon_details(credentials, beacon)
+    form['description'] = request.form.get('description')
     user = controller.get_session_username(credentials)
     status = controller.modify_beacon(beacon, credentials)
     status = SUCCESS if status.get('beaconName') else ERROR
