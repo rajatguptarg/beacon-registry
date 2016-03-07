@@ -45,12 +45,7 @@ class Beacon(object):
         """
         body = {
             "beaconName": self.beacon_name,
-            "placeId": self.place_id,
-            "indoorLevel": {
-                "name": self.indoorlevel_name,
-            },
             "description": self.description,
-            "properties": self.properties,
         }
         return body
 
