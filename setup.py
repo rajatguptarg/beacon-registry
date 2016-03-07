@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+import sys
+import unittest
 from setuptools import Command
 from distutils.core import setup
 
@@ -14,9 +16,31 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-MODULE2PREFIX = {
-    'beacon_manager': 'me',
-}
+class PortalTest(Command):
+    """
+    Run the tests for portal
+    """
+    description = "Run tests for portal"
+
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        if self.distribution.tests_require:
+            self.distribution.fetch_build_eggs(self.distribution.tests_require)
+
+        from tests import suite
+        test_result = unittest.TextTestRunner(verbosity=2).run(suite())
+
+        if test_result.wasSuccessful():
+            sys.exit(0)
+        sys.exit(-1)
+
 
 MODULE = "registry"
 PREFIX = "beacon"
@@ -43,5 +67,9 @@ setup(
         'Framework :: Flask',
         'Topic :: Office/Business',
     ],
-    test_suite='tests'
+    test_suite='tests.suite',
+    tests_require=[],
+    cmdclass={
+        'test': PortalTest,
+    },
 )
