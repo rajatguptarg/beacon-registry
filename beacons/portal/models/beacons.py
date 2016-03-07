@@ -15,7 +15,7 @@ class Beacon(object):
         self.expected_stability = form.get('expected_stability')
         self.position = form.get('position')
         self.place_id = form.get('place_id')
-        self.msg = form.get('msg')
+        self.msg = str(form.get('msg')).strip()
         self.namespace = form.get('namespace')
 
     def registration_request_body(self):
@@ -55,7 +55,7 @@ class Beacon(object):
         """
         body = {
             "namespacedType": self.namespace,
-            "data": (self.msg).encode('base64', 'strict')
+            "data": (self.msg).encode('base64', 'strict').strip()
         }
         return body
 
