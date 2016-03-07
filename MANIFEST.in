@@ -9,6 +9,7 @@ recursive-include beacons *.py
 recursive-include beacons *.css
 recursive-include beacons *.jinja
 recursive-include beacons *.js
+recursive-include beacons *.png
 
 global-exclude *.swp
 recursive-exclude beacons *.pyc
