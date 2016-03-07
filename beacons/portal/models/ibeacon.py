@@ -33,11 +33,14 @@ class IBeacon(Beacon):
 
         return (a << sizeof_b) | b
 
+    @property
     def properties(self):
-        return {"position": self.position,
-        "uuid": self.uuid,
-        "major": self.major,
-        "minor": self.minor}
+        return {
+            "position": str(self.position),
+            "uuid": str(self.uuid),
+            "major": str(self.major),
+            "minor": str(self.minor)
+        }
 
     def __init__(self, form):
         super(self.__class__, self).__init__(form)

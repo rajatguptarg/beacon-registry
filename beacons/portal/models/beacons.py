@@ -35,6 +35,7 @@ class Beacon(object):
             },
             "expectedStability": self.expected_stability,
             "description": self.description,
+            "properties": self.properties,
         }
         return body
 
@@ -49,6 +50,7 @@ class Beacon(object):
                 "name": self.indoorlevel_name,
             },
             "description": self.description,
+            "properties": self.properties,
         }
         return body
 
@@ -82,16 +84,15 @@ class Beacon(object):
         """
         pass
 
+    @property
     def properties(self):
         """
         Return properties
         """
-        pass
+        return dict()
 
-    def __str__(self):
+    def __repr__(self):
         if self.beacon_name:
             return 'Beacon Name: ' + str(self.beacon_name)
         else:
             return 'Advertised Id: ' + str(self.advertised_id())
-
-    __repr__ = __str__
