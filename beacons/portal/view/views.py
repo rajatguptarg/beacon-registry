@@ -38,7 +38,7 @@ def login_required(f):
     return decorated_function
 
 
-@portal.route('/beacons/')
+@portal.route('/')
 @login_required
 def list_beacons():
     """
@@ -50,7 +50,7 @@ def list_beacons():
     return render_template('beacons.jinja', beacons=beacon)
 
 
-@portal.route('/beacons/oauth2callback')
+@portal.route('/oauth2callback')
 def oauth2callback():
     """
     OAuth2.0 Callback
@@ -72,7 +72,7 @@ def oauth2callback():
         return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/beacons/register', methods=['GET'])
+@portal.route('/register', methods=['GET'])
 def register_beacons():
     """
     Render template for register beacons
@@ -80,7 +80,7 @@ def register_beacons():
     return render_template('register.jinja')
 
 
-@portal.route('/beacons/register', methods=['POST'])
+@portal.route('/register', methods=['POST'])
 @login_required
 def register_beacons_status():
     """
@@ -104,7 +104,7 @@ def register_beacons_status():
     return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/beacons/unregister', methods=['GET'])
+@portal.route('/unregister', methods=['GET'])
 def unregister_beacons():
     """
     Render template to deactivate beacon
@@ -112,7 +112,7 @@ def unregister_beacons():
     return render_template('unregister.jinja')
 
 
-@portal.route('/beacons/deactivate', methods=['POST'])
+@portal.route('/deactivate', methods=['POST'])
 @login_required
 def deactivate_beacons_status():
     """
@@ -130,7 +130,7 @@ def deactivate_beacons_status():
     return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/beacons/activate', methods=['POST'])
+@portal.route('/activate', methods=['POST'])
 @login_required
 def activate_beacons_status():
     """
@@ -148,7 +148,7 @@ def activate_beacons_status():
     return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/beacons/view-attachment', methods=['GET'])
+@portal.route('/view-attachment', methods=['GET'])
 @login_required
 def list_beacons_attachment():
     """
@@ -170,7 +170,7 @@ def list_beacons_attachment():
             msg="Sorry No Attachments Found")
 
 
-@portal.route('/beacons/edit', methods=['GET'])
+@portal.route('/edit', methods=['GET'])
 @login_required
 def edit_beacon():
     """
@@ -187,7 +187,7 @@ def edit_beacon():
         name=name)
 
 
-@portal.route('/beacons/edit-status', methods=['POST'])
+@portal.route('/edit-status', methods=['POST'])
 @login_required
 def edit_beacon_status():
     """
@@ -214,7 +214,7 @@ def edit_beacon_status():
     return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
-@portal.route('/beacons/attachment', methods=['GET'])
+@portal.route('/attachment', methods=['GET'])
 @login_required
 def attachment_beacons():
     credentials = client.OAuth2Credentials.from_json(
@@ -236,7 +236,7 @@ def attachment_beacons():
         attachment=decoded_message)
 
 
-@portal.route('/beacons/attachment-status', methods=['POST'])
+@portal.route('/attachment-status', methods=['POST'])
 @login_required
 def beacon_attachment_status():
     """
@@ -263,7 +263,7 @@ def beacon_attachment_status():
         return flask.redirect(flask.url_for('portal.attachment_beacons'))
 
 
-@portal.route('/beacons/estimote-details', methods=['GET'])
+@portal.route('/estimote-details', methods=['GET'])
 def estimote_cloud_details():
     """
     Returns the details of the beacon available on estimote cloud
@@ -273,7 +273,7 @@ def estimote_cloud_details():
     return render_template('estimote_details.jinja', beacon=beacon)
 
 
-@portal.route('/beacons/logout', methods=['GET'])
+@portal.route('/logout', methods=['GET'])
 @login_required
 def logout_user():
     """
@@ -290,7 +290,7 @@ def logout_user():
     return flask.redirect(flask.url_for('portal.oauth2callback'))
 
 
-@portal.route('/beacons/static/<resourcetype>/<path:filename>')
+@portal.route('/static/<resourcetype>/<path:filename>')
 def static_resources(resourcetype, filename):
     beacons.app.logger.info(
         str(os.path.join(
