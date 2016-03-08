@@ -92,15 +92,16 @@ def register_beacons_status():
     data = controller.register_beacon(beacon, credentials)
     name = controller.get_session_username(credentials)
     if data.get('error'):
+        flash("Beacon Registration failed!!!")
         beacons.app.logger.warning(
             'USER: ' + name + '\nBeacon with ' + str(beacon) +
             ' failed to register.')
     else:
+        flash("Beacon Registration Successful!!!")
         beacons.app.logger.warning(
             'USER: ' + name + '\nBeacon with ' + str(beacon) +
             ' registered successfully.')
-    return render_template(
-        'registration_status.jinja', status=data)
+    return flask.redirect(flask.url_for('portal.list_beacons'))
 
 
 @portal.route('/beacons/unregister', methods=['GET'])
@@ -122,6 +123,7 @@ def deactivate_beacons_status():
     beacon = BeaconHelper.create_beacon(request.form)
     controller.deactivate_beacon(beacon, credentials)
     user = controller.get_session_username(credentials)
+    flash("Beacon deactivated successfully!!!")
     beacons.app.logger.warning(
         'USER: ' + user + '\nBeacon with ' + str(beacon) +
         ' unregistration successful.')
@@ -139,6 +141,7 @@ def activate_beacons_status():
     beacon = BeaconHelper.create_beacon(request.form)
     controller.activate_beacon(beacon, credentials)
     user = controller.get_session_username(credentials)
+    flash("Beacon activated successfully!!!")
     beacons.app.logger.warning(
         'USER: ' + user + '\nBeacon with ' + str(beacon) +
         ' unregistration successful.')
@@ -199,10 +202,12 @@ def edit_beacon_status():
     status = controller.modify_beacon(beacon, form, credentials)
     status = SUCCESS if status.get('beaconName') else ERROR
     if status == SUCCESS:
+        flash("Beacon edited successfully!!!")
         beacons.app.logger.warning(
             'USER:' + user + '\nModified beacon' + ' with ' + str(beacon) +
             'successfully.')
     else:
+        flash("Editing beacon failed!!!")
         beacons.app.logger.warning(
             'USER:' + user + '\nModified beacon' + ' with ' +
             str(beacon) + ' failed.')
@@ -240,25 +245,22 @@ def beacon_attachment_status():
     credentials = client.OAuth2Credentials.from_json(
         flask.session['credentials'])
     beacon = BeaconHelper.create_beacon(request.form)
-    status = controller.attach_data_to_beacon(beacon, credentials)
+    controller.attach_data_to_beacon(beacon, credentials)
     user = controller.get_session_username(credentials)
     try:
+        flash("Attachment added successfully!!!")
         json.loads(request.form['msg'])
         beacons.app.logger.warning(
             'USER:' + user + '\nAdded attachement to' + ' beacon with ' +
             str(beacon) + ' successfully.')
+        return flask.redirect(flask.url_for('portal.list_beacons'))
     except ValueError:
+        flash("Adding attachment to beacon failed!!")
         beacons.app.logger.error(
             'USER:' + user + '\nAdded attachement' + ' to beacon with ' +
             str(beacon) + ' raised valued error.')
         flash('Invalid Input !!!!')
         return flask.redirect(flask.url_for('portal.attachment_beacons'))
-
-    decoded_message = base64.b64decode((json.loads(status))['data'])
-    attached_data = json.loads(decoded_message)
-
-    return render_template('attachment_status.jinja',
-         attachment=attached_data, status=json.loads(status))
 
 
 @portal.route('/beacons/estimote-details', methods=['GET'])
