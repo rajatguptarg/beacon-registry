@@ -40,7 +40,8 @@
                   <th class="info" >Status</th>
                   <th class="info col-sm-3" >Description</th>
                   <th class="info col-sm-3">Properties</th>
-                  <th class="info" colspan="2" >Attachments</th>
+                  <th class="info" colspan="1" >View Attachments</th>
+                  <th class="info" colspan="1" >Edit Attachment</th>
                   <th class="info" colspan="1" >Actions</th>
                   <th class="info" colspan="1" >Manufacturer</th>
               </tr>
@@ -81,7 +82,7 @@
                          <strong> {{key}} </strong> : {{beacon.properties.get(key)}}</br>
                         {% endfor %}
                       {% endif %}</td>
-                        
+
                       <form class="form-horizontal" action="{{ url_for('portal.list_beacons_attachment') }}" method="get">
                         <input type="hidden" class="form-control" name="name" value={{ beacon.beaconName }}>
                         <div class="form-group">

@@ -36,7 +36,6 @@ class IBeacon(Beacon):
     @property
     def properties(self):
         return {
-            "position": str(self.position),
             "uuid": str(self.uuid),
             "major": str(self.major),
             "minor": str(self.minor)

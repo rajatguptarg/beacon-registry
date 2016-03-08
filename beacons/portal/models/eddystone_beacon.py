@@ -17,7 +17,6 @@ class EddyStone(Beacon):
     @property
     def properties(self):
         return {
-            "position": str(self.position),
             "namespace": str(self.namespace),
             "instance": str(self.instance)
         }

@@ -25,3 +25,8 @@ table.table>tbody>tr>td{
 .beaconsContainer .form-group{
 	display: none;
 }
+
+.dataTables_length label, .dataTables_filter label{
+  font-weight: normal;
+  padding-bottom: 5px;
+}
