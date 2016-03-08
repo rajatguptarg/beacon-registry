@@ -196,7 +196,7 @@ def edit_beacon_status():
     form = controller.get_beacon_details(credentials, beacon)
     form['description'] = request.form.get('description')
     user = controller.get_session_username(credentials)
-    status = controller.modify_beacon(beacon, credentials)
+    status = controller.modify_beacon(beacon, form, credentials)
     status = SUCCESS if status.get('beaconName') else ERROR
     if status == SUCCESS:
         beacons.app.logger.warning(

@@ -79,12 +79,12 @@ def attach_data_to_beacon(beacon_details, credentials):
     return response.content
 
 
-def modify_beacon(beacon, credentials):
+def modify_beacon(beacon, form, credentials):
     """
     Modify the details of existing beacons
     """
     header = Header(credentials.access_token)
-    request_body = beacon.update_request_body()
+    request_body = beacon.update_request_body(form)
     url = url_builder.beacon_modification_url(beacon)
     response = requests.put(url, data=json.dumps(request_body),
         headers=header.get_header_body())

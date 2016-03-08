@@ -39,13 +39,17 @@ class Beacon(object):
         }
         return body
 
-    def update_request_body(self):
+    def update_request_body(self, form):
         """
         Return request body to update beacon
         """
         body = {
-            "beaconName": self.beacon_name,
-            "description": self.description,
+            "beaconName": form.get('beaconName'),
+            "description": form.get('description'),
+            "advertisedId": form.get('advertisedId'),
+            "status": form.get('status'),
+            "expectedStability": form.get('expectedStability'),
+            "properties": form.get('properties'),
         }
         return body
 
