@@ -3,10 +3,25 @@ Rest APIs of Portal
 """
 import json
 from beacons.portal.view import apis
-from flask import request
+from flask import request, jsonify
 from beacons.portal.models import IBeacon
 from beacons.portal.helper import Validator
-from flask.ext.responses import json_response
+
+
+def set_headers(res, headers):
+    for key, value in headers.items():
+        res.headers.add(key, value)
+    return res
+
+
+def json_response(data, status_code=200, headers=None):
+    res = jsonify(**data)
+    res.status_code = status_code
+
+    if isinstance(headers, dict):
+        res = set_headers(res, headers)
+
+    return res
 
 
 @apis.route('/ibeacon/advertised-id', methods=['POST'])
