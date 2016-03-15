@@ -23,4 +23,4 @@ log_handler.setFormatter(Formatter(
 app.logger.addHandler(log_handler)
 
 app.register_blueprint(portal, url_prefix='/beacons')
-app.register_blueprint(apis, url_prefix='/apis')
+app.register_blueprint(apis, url_prefix='/beacons/apis')
