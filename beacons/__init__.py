@@ -2,6 +2,7 @@ from flask import Flask
 import logging
 from logging import Formatter
 from beacons.portal.view import portal
+from beacons.portal.view import apis
 
 
 app = Flask(__name__)
@@ -22,3 +23,4 @@ log_handler.setFormatter(Formatter(
 app.logger.addHandler(log_handler)
 
 app.register_blueprint(portal, url_prefix='/beacons')
+app.register_blueprint(apis, url_prefix='/apis')
