@@ -57,7 +57,7 @@ def oauth2callback():
     """
     _, client_secret = map(str, sys.argv[1].split('='))
     _, env = map(str, sys.argv[2].split('='))
-    client_secret += '/' + env + '/' + 'client_secrets.json'
+    client_secret += '/' + env + '_client_secrets.json'
     flow = client.flow_from_clientsecrets(
         client_secret,
         scope=SCOPE,
