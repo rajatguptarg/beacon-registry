@@ -8,11 +8,26 @@ import uuid
 from beacons import app
 
 
+def get_app_context():
+    """
+    Set the SSL Context
+    """
+    argument, cert_path = map(str, sys.argv[4].split('='))
+    if argument == 'cert_path':
+        context = (cert_path + '/cert.pem', cert_path + '/cert.key')
+    return context
+
+
 if __name__ == '__main__':
     argument, _ = map(str, sys.argv[1].split('='))
     env, _ = map(str, sys.argv[2].split('='))
+    port_argument, port = map(str, sys.argv[3].split('='))
+
     if argument == 'config_directory' and env == 'env':
+        context = get_app_context()
         app.secret_key = str(uuid.uuid4())
-        app.run(debug=False, port=443, host='0.0.0.0')
+        port = int(port)
+
+        app.run(debug=False, ssl_context=context, port=port, host='0.0.0.0')
     else:
         raise ValueError
