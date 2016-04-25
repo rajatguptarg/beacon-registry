@@ -1,4 +1,5 @@
 import base64
+from math import ceil
 from beacons import Beacon
 
 
@@ -14,9 +15,19 @@ class IBeacon(Beacon):
         namespace = '0x' + self.uuid[:8] + self.uuid[-12:]
         major, minor = map(int, (self.major, self.minor))
         temp_instance = self._append_hex(major, minor)
-        instance = self._append_hex(self.padding, temp_instance)
+        instance = self._add_padding(temp_instance)
         beacon_id = self._append_hex(int(namespace, 16), instance)
         return base64.b64encode(self.long_to_bytes(beacon_id))
+
+    def _add_padding(self, instance):
+        """
+        Append padding of desired size
+        """
+        bytes_length = int(ceil(instance.bit_length())) / 8
+        desired_padding_size = self.desired_instance_bytes - bytes_length
+        padding = desired_padding_size * self.padding
+        padding = int(padding, 16)
+        return self._append_hex(padding, instance)
 
     def _append_hex(self, a, b):
         """
@@ -46,4 +57,5 @@ class IBeacon(Beacon):
         self.uuid = form.get('uuid')
         self.major = form.get('major')
         self.minor = form.get('minor')
-        self.padding = 0xffff
+        self.padding = 'ff'
+        self.desired_instance_bytes = 6
