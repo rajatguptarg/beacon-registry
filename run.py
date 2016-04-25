@@ -23,7 +23,7 @@ if __name__ == '__main__':
     env, _ = map(str, sys.argv[2].split('='))
     port_argument, port = map(str, sys.argv[3].split('='))
 
-    if argument == 'config_directory' and env == 'env':
+    if argument == 'config_directory' and env == 'env' and port_argument == 'port':
         context = get_app_context()
         app.secret_key = str(uuid.uuid4())
         port = int(port)
