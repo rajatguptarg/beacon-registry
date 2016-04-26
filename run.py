@@ -20,14 +20,17 @@ def get_app_context():
 
 if __name__ == '__main__':
     argument, _ = map(str, sys.argv[1].split('='))
-    env, _ = map(str, sys.argv[2].split('='))
+    env_arg, env = map(str, sys.argv[2].split('='))
     port_argument, port = map(str, sys.argv[3].split('='))
 
-    if argument == 'config_directory' and env == 'env' and port_argument == 'port':
+    if argument == 'config_directory' and env_arg == 'env' and port_argument == 'port':
         context = get_app_context()
         app.secret_key = str(uuid.uuid4())
         port = int(port)
 
-        app.run(debug=False, ssl_context=context, port=port, host='0.0.0.0')
+        if env == 'qa':    
+            app.run(debug=False, port=port, host='0.0.0.0')
+        else:
+            app.run(debug=False, ssl_context=context, port=port, host='0.0.0.0')
     else:
         raise ValueError
