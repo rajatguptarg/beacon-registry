@@ -28,7 +28,7 @@ if __name__ == '__main__':
         app.secret_key = str(uuid.uuid4())
         port = int(port)
 
-        if env == 'qa':    
+        if env == 'qa':
             app.run(debug=False, port=port, host='0.0.0.0')
         else:
             app.run(debug=False, ssl_context=context, port=port, host='0.0.0.0')
