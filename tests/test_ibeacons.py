@@ -42,22 +42,22 @@ class TestIBeacon(unittest.TestCase):
         self.beacon_data["major"] = "1600"
         self.beacon_data["minor"] = "5825"
         beacon = IBeacon(self.beacon_data)
-        self.assertEqual(beacon.advertised_id(), "C5QH8wJVVrV/5t////ZAFsE=")
+        self.assertEqual(beacon.advertised_id(), "uUB/MCVVa1f+bf//9kAWwQ==")
 
     def test_0050_advertised_id_with_major_1600_minor_58256(self):
         self.beacon_data["major"] = "1600"
         self.beacon_data["minor"] = "58256"
         beacon = IBeacon(self.beacon_data)
-        self.assertEqual(beacon.advertised_id(), "C5QH8wJVVrV/5t////ZA45A=")
+        self.assertEqual(beacon.advertised_id(), "uUB/MCVVa1f+bf//9kDjkA==")
 
-    def test_0050_advertised_id_with_major_1600_minor_582567(self):
+    def test_0060_advertised_id_with_major_1600_minor_582567(self):
         self.beacon_data["major"] = "1600"
         self.beacon_data["minor"] = "582567"
         beacon = IBeacon(self.beacon_data)
-        self.assertEqual(beacon.advertised_id(), "uUB/MCVVa1f+bf///2QI46c=")
+        self.assertEqual(beacon.advertised_id(), "uUB/MCVVa1f+bf//ZAjjpw==")
 
-    def test_0060_advertised_id_with_major_1600_minor_5(self):
+    def test_0070_advertised_id_with_major_1600_minor_5(self):
         self.beacon_data["major"] = "1600"
         self.beacon_data["minor"] = "5"
         beacon = IBeacon(self.beacon_data)
-        self.assertEqual(beacon.advertised_id(), "uUB/MCVVa1f+bf//////ZAU=")
+        self.assertEqual(beacon.advertised_id(), "uUB/MCVVa1f+bf////9kBQ==")
