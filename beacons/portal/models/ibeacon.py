@@ -23,10 +23,9 @@ class IBeacon(Beacon):
         """
         Append padding of desired size
         """
-        bytes_length = int(ceil(instance.bit_length())) / 8
-        desired_padding_size = self.desired_instance_bytes - bytes_length
-        padding = desired_padding_size * self.padding
-        padding = int(padding, 16)
+        bit_length = int(ceil(instance.bit_length())) + 1
+        desired_padding_size = self.desired_instance_bits - bit_length
+        padding = (2 ** desired_padding_size) - 1
         return self._append_hex(padding, instance)
 
     def _append_hex(self, a, b):
@@ -57,5 +56,5 @@ class IBeacon(Beacon):
         self.uuid = form.get('uuid')
         self.major = form.get('major')
         self.minor = form.get('minor')
-        self.padding = 'ff'
-        self.desired_instance_bytes = 6
+        self.padding = 'f'
+        self.desired_instance_bits = 48
