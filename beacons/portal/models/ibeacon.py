@@ -1,5 +1,4 @@
 import base64
-from math import ceil
 from beacons import Beacon
 
 
@@ -23,7 +22,7 @@ class IBeacon(Beacon):
         """
         Append padding of desired size
         """
-        bit_length = int(ceil(instance.bit_length())) + 1
+        bit_length = (len(hex(instance)) - 2) * 4
         desired_padding_size = self.desired_instance_bits - bit_length
         padding = (2 ** desired_padding_size) - 1
         return self._append_hex(padding, instance)
