@@ -36,8 +36,3 @@ celery = make_celery(app)
 
 
 __all__ = ['celery']
-
-
-@celery.task
-def add(x, y):
-    return x + y

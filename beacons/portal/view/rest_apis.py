@@ -6,7 +6,7 @@ from beacons.portal.view import apis
 from flask import request, jsonify
 from beacons.portal.models import IBeacon
 from beacons.portal.helper import Validator
-from beacons import add
+from beacons.tasks import add
 
 
 def set_headers(res, headers):
