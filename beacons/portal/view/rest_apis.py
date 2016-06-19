@@ -6,6 +6,7 @@ from beacons.portal.view import apis
 from flask import request, jsonify
 from beacons.portal.models import IBeacon
 from beacons.portal.helper import Validator
+from cel_jobs import add
 
 
 def set_headers(res, headers):
@@ -46,3 +47,13 @@ def api_gateway():
     return json_response(
         {"message": "Welcome to API Gateway of Beacon Registry"},
         status_code=200)
+
+
+@apis.route('/add', methods=['POST'])
+def add_page():
+    x = request.get_json().get('x')
+    y = request.get_json().get('y')
+
+    task = add.delay(x, y)
+    return json_response(
+        {"id": task.id}, status_code=200)
