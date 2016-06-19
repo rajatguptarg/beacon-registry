@@ -6,7 +6,7 @@ from beacons.portal.view import apis
 from flask import request, jsonify
 from beacons.portal.models import IBeacon
 from beacons.portal.helper import Validator
-from beacons.tasks import add
+from cel_jobs import add
 
 
 def set_headers(res, headers):
@@ -51,8 +51,8 @@ def api_gateway():
 
 @apis.route('/add', methods=['POST'])
 def add_page():
-    x = request.form.get('x')
-    y = request.form.get('y')
+    x = request.get_json().get('x')
+    y = request.get_json().get('y')
 
     task = add.delay(x, y)
     return json_response(

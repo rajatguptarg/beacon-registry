@@ -3,7 +3,7 @@ import logging
 from logging import Formatter
 from beacons.portal.view import portal
 from beacons.portal.view import apis
-from beacons.async import make_celery
+# from beacons.async import make_celery
 
 
 mq_url = 'amqp://mq:mq@localhost/localhost'
@@ -32,7 +32,6 @@ app.logger.addHandler(log_handler)
 
 app.register_blueprint(portal, url_prefix='/beacons')
 app.register_blueprint(apis, url_prefix='/beacons/apis')
-celery = make_celery(app)
 
 
 __all__ = ['celery']
